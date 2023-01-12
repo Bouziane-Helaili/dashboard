@@ -11,6 +11,12 @@
 			{% endblock %}
 		</title>
 		<link href="{{asset('assets/css/styles.css')}}" rel="stylesheet"/>
+        {% block stylesheets %}
+            {{ encore_entry_link_tags('app') }}
+        {% endblock %}
+        {% block javascripts %}
+            {{ encore_entry_script_tags('app') }}
+        {% endblock %}
 		<script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
 	</head>
 	<body class='sb-nav-fixed'>
@@ -143,25 +149,25 @@
 			<div id="layoutSidenav_content">
 				<main>
 					<div class="container-fluid px-4">
-						{% for message in app.session.flahbag.get("info") %}
-							<div class="alert alert-info">
-								{{message}}
-							</div>
-						{% endfor %}
-						{% for message in app.session.flahbag.get("success") %}
-							<div class="alert alert-success">
-								{{message}}
-							</div>
-						{% endfor %}
-						{% for message in app.session.flahbag.get("error") %}
-							<div class="alert alert-danger">
-								{{message}}
-							</div>
-						{% endfor %}
 						<h1 class="mt-4">
 							{% block PageTitle %}Titre de la page
 							{% endblock PageTitle %}
 						</h1>
+						{% for message in app.session.flashbag.get("info") %}
+							<div class="alert alert-info">
+								{{ message }}
+							</div>
+						{% endfor %}
+						{% for message in app.session.flashbag.get("success") %}
+							<div class="alert alert-success">
+								{{ message }}
+							</div>
+						{% endfor %}
+						{% for message in app.session.flashbag.get("error") %}
+							<div class="alert alert-danger">
+								{{ message }}
+							</div>
+						{% endfor %}
 						<div class="card mb-4">
 							<div class="card-body">
 								{% block body %}
