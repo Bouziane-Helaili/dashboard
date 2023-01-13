@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Employee;
+use Doctrine\Persistence\ManagerRegistry as PersistenceManagerRegistry;
 use Symfony\Bridge\Doctrine\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -20,7 +21,7 @@ class EmployeeController extends AbstractController
     }
 
     #[Route('/ajout', name: 'app_employee_ajout')]
-    public function addEmployee(ManagerRegistry $doctrine): Response
+    public function addEmployee(PersistenceManagerRegistry $doctrine): Response
     {
         $entityManager = $doctrine->getManager();
         $employee = new Employee();
@@ -30,10 +31,8 @@ class EmployeeController extends AbstractController
 
         $entityManager->persist($employee);
 
-
-
         return $this->render('employee/detail.html.twig', [
-            'controller_name' => 'EmployeeController',
+            'employee' => $employee,
         ]);
     }
 }
